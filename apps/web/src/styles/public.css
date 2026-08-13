@@ -1,0 +1,28 @@
+/* Estilos base escopados para o site público do sindicato (Tailwind tem preflight desativado).
+   Aplicado pelo PublicLayout na raiz #root dos layouts públicos.
+   As cores agora usam variáveis CSS para que o tema dinâmico (ex.: escuro) atue globalmente.
+   Os defaults preservam a aparência original. */
+.pub-site {
+  color: var(--pub-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background: var(--pub-bg);
+}
+
+.pub-site img {
+  max-width: 100%;
+  display: block;
+}
+
+.pub-site a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pub-site h1,
+.pub-site h2,
+.pub-site h3,
+.pub-site p {
+  margin: 0;
+}

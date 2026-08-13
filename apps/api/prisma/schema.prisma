@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Plan {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  amount       Decimal  @db.Decimal(10, 2)
+  durationDays Int
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id            String         @id @default(cuid())
+  publicToken   String         @unique
+  customerName  String?
+  customerEmail String?
+  planId        String
+  amount        Decimal        @db.Decimal(10, 2)
+  status        SubscriptionStatus @default(PENDING)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  paidAt        DateTime?
+  startedAt     DateTime?
+  expiresAt     DateTime?
+
+  plan      Plan      @relation(fields: [planId], references: [id])
+  payments  Payment[]
+
+  @@map("subscriptions")
+}
+
+enum SubscriptionStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+model Payment {
+  id             String        @id @default(cuid())
+  subscriptionId String
+  gateway        String
+  gatewayPaymentId String?      @unique
+  amount         Decimal       @db.Decimal(10, 2)
+  status         PaymentStatus @default(PENDING)
+  qrCode         String?       @db.Text
+  qrCodeText     String?       @db.Text
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  paidAt         DateTime?
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+
+  @@index([subscriptionId])
+  @@map("payments")
+}
+
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  provider  String
+  eventId   String?  @unique
+  paymentId String?
+  eventType String?
+  payload   Json?
+  processed Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([provider, eventId])
+  @@map("webhook_events")
+}
+
+model Associate {
+  id   String @id @default(cuid())
+  status String @default("PENDENTE")
+
+  // Informações gerais
+  fullName      String
+  preferredName String?
+  birthDate     DateTime?
+  sex           String?
+  cpf           String?
+  rg            String?
+  rgIssuer      String?
+  rgIssueDate   DateTime?
+  fatherName    String?
+  motherName    String?
+  maritalStatus String?
+  originState   String?
+  originCity    String?
+
+  // Informações profissionais
+  workRegime String?
+  company    String?
+  workplace  String?
+  role       String?
+  council    String?
+
+  // Endereço
+  cep          String?
+  street       String?
+  number       String?
+  neighborhood String?
+  city         String?
+  state        String?
+  complement   String?
+
+  // Contato
+  phone     String?
+  email     String?
+  instagram String?
+
+  // Arquivos armazenados (caminho relativo servido por /files)
+  photoPath     String?
+  signaturePath String?
+
+  createdAt DateTime @default(now())
+
+  dependents Dependent[]
+
+  @@map("associates")
+}
+
+model Dependent {
+  id          String   @id @default(cuid())
+  associateId String
+  name        String?
+  birthDate   DateTime?
+  kinship     String?
+  cpf         String?
+
+  associate Associate @relation(fields: [associateId], references: [id], onDelete: Cascade)
+
+  @@index([associateId])
+  @@map("dependents")
+}
+
+enum NewsStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+  DISABLED
+}
+
+model News {
+  id          String     @id @default(cuid())
+  title       String
+  subtitle    String?
+  content     String?    @db.Text
+  category    String?
+  author      String?
+  headline    Boolean    @default(false)
+  status      NewsStatus @default(DRAFT)
+  imagePath   String?
+  publishedAt DateTime?
+  scheduleAt  DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([status])
+  @@map("news")
+}
+
+enum BannerStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Banner {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  buttonText  String?
+  buttonLink  String?
+  position    String       @default("principal")
+  imagePath   String?
+  order       Int          @default(0)
+  main        Boolean      @default(false)
+  status      BannerStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("banners")
+}
+
+model SiteSetting {
+  key       String   @id
+  value     String?
+  group     String   @default("geral")
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}

@@ -1,0 +1,158 @@
+.pub {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eef2ff 0%, #f4f6fb 100%);
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.pub--center {
+  align-items: center;
+}
+
+.pub-inner {
+  width: 100%;
+  max-width: 420px;
+}
+
+.pub-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pub-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.pub-brand {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.pub-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  padding: 28px 24px;
+}
+
+.pub-badge {
+  display: inline-block;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.pub-title {
+  font-size: 22px;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.pub-text {
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.pub-plan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.pub-plan-name {
+  font-weight: 600;
+}
+
+.pub-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.pub-btn {
+  padding: 14px;
+  font-size: 16px;
+}
+
+.pub-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 14px 0 0;
+}
+
+.pub-qr {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1;
+  display: block;
+  margin: 0 auto 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.pub-status-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.pub-paid {
+  text-align: center;
+}
+
+.pub-check {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #fff;
+  font-size: 30px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+}
+
+.pub-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.pub-detail > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
