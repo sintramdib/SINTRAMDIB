@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
   },
   preview: {
-    allowedHosts: true,
+    allowedHosts: ['sintramdib.onrender.com'],
   },
   build: {
     outDir: 'dist',
