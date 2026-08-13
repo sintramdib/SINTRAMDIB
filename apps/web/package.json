@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "typecheck": "tsc --noEmit",
-    "preview": "vite preview --port $PORT --host"
+    "preview": "vite preview",
+    "start": "npx serve -s dist -l $PORT"
   },
   "dependencies": {
     "autoprefixer": "^10.5.4",
