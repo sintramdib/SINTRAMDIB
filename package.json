@@ -1,10 +1,13 @@
 {
-  "name": "dash-assinatura",
-  "version": "0.1.0",
+  "name": "sintramdib",
   "private": true,
   "workspaces": [
     "apps/*"
   ],
+  "scripts": {
+    "build": "npm run build --workspace=@dash/web"
+  }
+},
   "scripts": {
     "dev": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
