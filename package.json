@@ -6,8 +6,8 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspaces --if-present",
-"build": "npm run build --prefix apps/web",
-"start": "npm run preview --prefix apps/web",
+    "build": "npm run build --prefix apps/web",
+    "start": "npm run preview --prefix apps/web",
     "db:generate": "npm run db:generate -w apps/api",
     "db:migrate": "npm run db:migrate -w apps/api",
     "db:seed": "npm run db:seed -w apps/api"
@@ -21,5 +21,8 @@
     "esbuild@0.28.2": true,
     "esbuild@0.21.5": true,
     "prisma@5.22.0": true
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
   }
 }
