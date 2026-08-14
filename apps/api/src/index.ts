@@ -1,15 +1,18 @@
-import 'dotenv/config';
-import { env } from './config/env';
-import { buildApp } from './app';
+import express from 'express';
+import cors from 'cors';
 
-async function start() {
-  const app = await buildApp();
-  try {
-    await app.listen({ port: env.PORT, host: '0.0.0.0' });
-  } catch (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
-}
+const app = express();
 
-start();
+app.use(express.json());
+app.use(cors());
+
+app.get('/', (req, res) => {
+  return res.json({ status: 'API rodando perfeitamente!' });
+});
+
+// Pega a porta injetada pelo Render ou usa 3333 localmente
+const PORT = Number(process.env.PORT) || 3333;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`[OK] Servidor escutando na porta ${PORT}`);
+});
